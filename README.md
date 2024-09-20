@@ -1,8 +1,8 @@
 # SENTINEL Multimodal Search Engine
 
-SENTINEL Multimodal Search Engine allows to search (retrieve) events, objects, situations or whatever that is happening in an image with simple natural language queries/prompts. This works for massive image datasets, which empowers the user to "just ask" and get relevant results withing miliseconds.
+SENTINEL Multimodal Search Engine allows to search (retrieve) events, objects, situations or whatever that is happening in an image with simple natural language queries/prompts. This works for massive image datasets, which empowers the user to "just ask" and get relevant results within milliseconds.
 
-This prototype leverages the power of multimodal neural embedding models to represent both images and text into the same vector space, which allows a unified and extremely fast vector search (via a vector database).
+This prototype leverages the power of multimodal neural embedding models to represent both images and text into the same vector space, which allows for a unified and extremely fast vector search (via a vector database).
 
 
 ### Architecture
