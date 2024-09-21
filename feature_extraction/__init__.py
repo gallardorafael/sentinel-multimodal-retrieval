@@ -1,0 +1,2 @@
+from .feature_extractor import MultimodalFeatureExtractor
+from .jina_clip_encoder import JinaCLIPFeatureExtractor
