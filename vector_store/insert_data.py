@@ -13,6 +13,7 @@ from feature_extraction import JinaCLIPFeatureExtractor, MultimodalFeatureExtrac
 from .defaults import *
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 def parse_args():
@@ -90,6 +91,7 @@ def insert_data(
     vector_field_name: str,
     feature_extractor: MultimodalFeatureExtractor,
 ) -> None:
+    inserted_count = 0
     for image_object in track(dataset, description=f"Inserting {len(dataset)} images into Milvus"):
         # read image
         image = Image.open(image_object.image_path)
@@ -100,7 +102,7 @@ def insert_data(
         # insert into collection
         caption = image_object.best_caption
 
-        client.insert(
+        res = client.insert(
             collection_name=collection_name,
             data=[
                 {
@@ -110,6 +112,9 @@ def insert_data(
                 }
             ],
         )
+        if res["insert_count"] > 0:
+            inserted_count += res["insert_count"]
+    logger.info("Inserted %d images into Milvus" % inserted_count)
 
 
 def main():
