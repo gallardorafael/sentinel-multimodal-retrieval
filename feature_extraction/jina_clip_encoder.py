@@ -51,8 +51,8 @@ class JinaCLIPFeatureExtractor(MultimodalFeatureExtractor):
         if isinstance(images, Image.Image):
             images = [images]
 
-        # get image embeddings
-        embeddings = self.model.encode_image(images)
+        # get image embeddings, remove batch dim
+        embeddings = self.model.encode_image(images).squeeze()
 
         return embeddings
 
@@ -68,7 +68,7 @@ class JinaCLIPFeatureExtractor(MultimodalFeatureExtractor):
         if isinstance(sentences, str):
             sentences = [sentences]
 
-        # get text embeddings
-        embeddings = self.model.encode_text(sentences)
+        # get text embeddings, remove batch dim
+        embeddings = self.model.encode_text(sentences).squeeze()
 
         return embeddings
