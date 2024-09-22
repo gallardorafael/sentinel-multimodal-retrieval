@@ -15,7 +15,7 @@ class FlickrImage:
         best_caption (str): The best caption for the image.
     """
 
-    image_path: Path
+    image_path: str
     captions: List[str]
     best_caption: str
 
