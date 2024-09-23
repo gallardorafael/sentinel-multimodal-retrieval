@@ -34,7 +34,16 @@ class MultimodalRetriever:
         top_k: Optional[int] = 20,
         output_fields: Optional[List[str]] = DEFAULT_FIELDS,
     ):
-        """"""
+        """Initializes the multimodal retriever.
+
+        Args:
+            feature_extractor (Optional[MultimodalFeatureExtractor], optional): The feature extractor to use. Defaults to JinaCLIPFeatureExtractor().
+            db_uri (Optional[str], optional): The URI of the Milvus server. Defaults to MILVUS_URI.
+            db_name (Optional[str], optional): The name of the Milvus database. Defaults to MILVUS_DB_NAME.
+            collection_name (Optional[str], optional): The name of the collection. Defaults to MILVUS_COLLECTION_NAME.
+            top_k (Optional[int], optional): The number of results to return. Defaults to 20.
+            output_fields (Optional[List[str]], optional): The fields to return in the output. Defaults to DEFAULT_FIELDS.
+        """
         self.client = MilvusClient(uri=db_uri, db_name=db_name)
         self.feature_extractor = feature_extractor
         self.collection_name = collection_name
@@ -42,7 +51,13 @@ class MultimodalRetriever:
         self.output_fields = output_fields
 
     def get_search_hits(self, search_query: Union[Image.Image, str]) -> List[SearchHit]:
-        """"""
+        """Searches the Milvus collection for the given query.
+
+        Args:
+            search_query (Union[Image.Image, str]): The query to search for. This query can be either an image or a string.
+        Returs:
+            List[SearchHit]: A list of search hits, which include the caption, similarity and filename.
+        """
         # extracting the embeddings depending on the type of the query
         if isinstance(search_query, str):
             query_embeddings = self.feature_extractor.get_text_features(search_query)
