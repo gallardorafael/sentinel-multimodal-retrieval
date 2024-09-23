@@ -6,4 +6,4 @@ MILVUS_COLLECTION_NAME = os.getenv("MILVUS_COLLECTION_NAME", "mm_retrieval_colle
 VECTOR_FIELD_DIM = 768
 DEFAULT_VECTOR_FIELD_NAME = "embedding"
 DEFAULT_METRIC = "COSINE"
-DEFAULT_FIELDS = ["filename", "name"]
+DEFAULT_FIELDS = ["filename", "caption"]
