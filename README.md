@@ -6,7 +6,7 @@ This prototype leverages the power of multimodal vector spaces and models to rep
 
 Demo video:
 
-https://github.com/user-attachments/assets/df9adf12-e923-456c-9a8e-2b573dc3b7ec
+https://github.com/user-attachments/assets/186aa0c4-1138-4724-9274-96584700f168
 
 ### Architecture
 
