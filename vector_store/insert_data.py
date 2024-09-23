@@ -7,7 +7,7 @@ from PIL import Image
 from pymilvus import MilvusClient
 from rich.progress import track
 
-from datasets import FlickrDataset
+from datasets import Flickr30kDataset, FlickrDataset
 from feature_extraction import JinaCLIPFeatureExtractor, MultimodalFeatureExtractor
 
 from .defaults import *
@@ -25,9 +25,8 @@ def parse_args():
     parser.add_argument(
         "--data_type",
         type=str,
-        default="flickr",
         help="Dataset type to be inserted",
-        choices=["flickr"],
+        choices=["flickr8k", "flickr30k"],
     )
     parser.add_argument("--uri", type=str, default=MILVUS_URI, help="Host of Milvus server")
     parser.add_argument(
@@ -139,8 +138,17 @@ def main():
     )
 
     # inserting data from the Flickr dataset
-    if args.data_type == "flickr":
+    if args.data_type == "flickr8k":
         dataset = FlickrDataset(root_path=args.data_path)
+        insert_data(
+            dataset,
+            client=client,
+            collection_name=args.collection_name,
+            vector_field_name=DEFAULT_VECTOR_FIELD_NAME,
+            feature_extractor=extractor,
+        )
+    elif args.data_type == "flickr30k":
+        dataset = Flickr30kDataset(root_path=args.data_path)
         insert_data(
             dataset,
             client=client,
