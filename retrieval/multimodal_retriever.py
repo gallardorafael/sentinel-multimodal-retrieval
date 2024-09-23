@@ -50,12 +50,15 @@ class MultimodalRetriever:
         self.top_k = top_k
         self.output_fields = output_fields
 
-    def get_search_hits(self, search_query: Union[Image.Image, str]) -> List[SearchHit]:
+    def get_search_hits(
+        self, search_query: Union[Image.Image, str], top_k: Optional[int] = None
+    ) -> List[SearchHit]:
         """Searches the Milvus collection for the given query.
 
         Args:
             search_query (Union[Image.Image, str]): The query to search for. This query can be either an image or a string.
-        Returs:
+            top_k (Optional[int], optional): The number of results to return. Defaults to None.
+        Returns:
             List[SearchHit]: A list of search hits, which include the caption, similarity and filename.
         """
         # extracting the embeddings depending on the type of the query
@@ -65,6 +68,9 @@ class MultimodalRetriever:
             query_embeddings = self.feature_extractor.get_image_features(search_query)
         else:
             raise ValueError("The search query must be either a string or an Image object.")
+
+        if top_k is None:
+            top_k = self.top_k
 
         results = self.client.search(
             collection_name=self.collection_name,
@@ -77,11 +83,11 @@ class MultimodalRetriever:
         for hit in results[0]:
             # Since the DEFAULT_METRIC is COSINE, Milvus is already giving us similarity, not a distance
             hits.append(
-                {
-                    "caption": hit["entity"].get("caption"),
-                    "similarity": hit["distance"],
-                    "filename": hit["entity"].get("filename"),
-                }
+                SearchHit(
+                    caption=hit["entity"].get("caption"),
+                    similarity=hit["distance"],
+                    filename=hit["entity"].get("filename"),
+                )
             )
         logger.info("Returning %s hits", len(hits))
         return hits
