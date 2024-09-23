@@ -1,1 +1,1 @@
-from .flickr_captioning import FlickrDataset, FlickrImage
+from .flickr_captioning import Flickr30kDataset, FlickrDataset, FlickrImage

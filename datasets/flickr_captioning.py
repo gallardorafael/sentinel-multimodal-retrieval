@@ -88,3 +88,24 @@ class FlickrDataset:
     def __len__(self):
         """Returns the number of images in the dataset."""
         return len(self.image_paths)
+
+
+class Flickr30kDataset(FlickrDataset):
+    """An iterator dataset class for handling Flickr30k image-caption pairs.
+
+    The annotations for this dataset include filename, comment number, and caption, so this
+    is why the _load_data mthod is different from the FlickrDataset class.
+    """
+
+    def _load_data(self):
+        """Loads the image paths and captions from the root path."""
+        # getting all the image paths from the root_path
+        self.image_paths = list(self.root_path.glob("**/*.jpg"))
+
+        # loading the captions
+        with open(self.root_path / "captions.txt", "r") as csvfile:
+            csv_reader = csv.reader(csvfile)
+            rows = [row for row in csv_reader]
+
+        for row in rows:
+            self.captions_dict[row[0]].append(row[2])
