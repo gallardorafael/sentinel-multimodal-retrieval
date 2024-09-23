@@ -35,7 +35,9 @@ class MultimodalRetrieverUI:
         # title
         st.title("SENTINEL Multimodal Retrieval")
 
-        text_input = st.sidebar.text_input("Query sentence")
+        text_input = st.sidebar.text_input(
+            "Query sentence", help="Insert the sentence/topic you want to to search for."
+        )
         st.session_state["text_input"] = text_input
         if st.sidebar.button("Text-to-image search"):
             self.search("Text-to-image search")
