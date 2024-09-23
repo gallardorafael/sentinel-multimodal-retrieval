@@ -4,6 +4,10 @@ SENTINEL Multimodal Retrieval allows to search (retrieve) events, objects, situa
 
 This prototype leverages the power of multimodal vector spaces and models to represent both images and text into the same vector space, which allows for a unified and extremely fast vector search (via a vector database).
 
+Demo video:
+
+https://github.com/user-attachments/assets/df9adf12-e923-456c-9a8e-2b573dc3b7ec
+
 ### Architecture
 
 This repository has four main modules:
