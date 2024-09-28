@@ -19,6 +19,8 @@ services:
     volumes:
       - "/path/to/data:/data"
       - ".:/sentinel-workspace"
+      # mount hugginface cache folder to avoid downloading models every time
+      - "~/.cache/huggingface:/root/.cache/huggingface"
     # interactive communication support
     stdin_open: true
     tty: true
