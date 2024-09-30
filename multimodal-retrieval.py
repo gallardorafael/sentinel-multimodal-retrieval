@@ -22,10 +22,16 @@ def _recommended_box2(img: Image, aspect_ratio: tuple) -> dict:
     }
 
 
+@st.cache_resource
+def init_retriever():
+    retriever = MultimodalRetriever()
+    return retriever
+
+
 class MultimodalRetrieverUI:
     def __init__(self):
         streamlit_cropper._recommended_box = _recommended_box2
-        self.retriever = MultimodalRetriever()
+        self.retriever = init_retriever()
         self.init_sidebar()
 
     def init_sidebar(self):
